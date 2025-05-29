@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: streamlit-task-manager-service
+  labels:
+    app: streamlit-task-manager
+spec:
+  selector:
+    app: streamlit-task-manager # This must match the labels in your Deployment's Pod template
+  ports:
+    - protocol: TCP
+      port: 80 # The port the Service will listen on inside the cluster
+      targetPort: 8501 # The port of the container (your Streamlit app)
+      # nodePort: 30000 # Optional: For NodePort type, allows access from outside the cluster.
+                      # Minikube often uses this automatically or through 'minikube service'.
+  type: LoadBalancer # For Minikube, this will typically act as a NodePort or directly map.
+                     # In a cloud environment, this would provision a cloud load balancer.

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: streamlit-task-manager-deployment
+  labels:
+    app: streamlit-task-manager
+spec:
+  replicas: 1 # We'll start with one replica of our app
+  selector:
+    matchLabels:
+      app: streamlit-task-manager
+  template:
+    metadata:
+      labels:
+        app: streamlit-task-manager
+    spec:
+      containers:
+      - name: streamlit-task-manager
+        image: shashank1321/python-task-manager:latest # IMPORTANT: Replace with your Docker Hub ID!
+        ports:
+        - containerPort: 8501 # The port your Streamlit app runs on inside the container
+        # Optional: Resource limits (good practice for production)
+        # resources:
+        #   limits:
+        #     memory: "512Mi"
+        #     cpu: "500m"
